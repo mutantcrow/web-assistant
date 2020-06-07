@@ -22,5 +22,13 @@
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-google": "^0.14.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mutantcrow/web-assistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mutantcrow/web-assistant/issues"
+  },
+  "homepage": "https://github.com/mutantcrow/web-assistant#readme"
 }
