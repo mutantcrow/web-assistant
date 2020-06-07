@@ -1,0 +1,26 @@
+{
+  "name": "web-assistant",
+  "version": "1.0.0",
+  "description": "A configurable task runner for web development.",
+  "main": "index.js",
+  "bin": {
+    "wa": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "task"
+  ],
+  "author": "Erdem Arslan",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^6.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
