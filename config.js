@@ -6,16 +6,17 @@ const typescript = require('./includes/config-typescript');
 const sass = require('./includes/config-sass');
 const output = require('./includes/config-output');
 
-const prompts = new rx.Subject();
-const callbacks = [];
+global.prompts = new rx.Subject();
+global.callbacks = [];
+global.packageJson = {entry: {}, output: {}};
 
 inquirer.prompt(prompts)
     .then((answers) => callbacks.forEach(
-        (callback) => callback(answers, callbacks)));
+        (callback) => callback(answers)));
 
-entry(prompts, callbacks);
-typescript(prompts, callbacks);
-sass(prompts, callbacks);
-output(prompts, callbacks);
+entry();
+typescript();
+sass();
+output();
 
 prompts.complete();

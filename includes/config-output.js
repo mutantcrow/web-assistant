@@ -1,14 +1,26 @@
 const fs = require('fs');
+const path = require('path');
 const chalk = require('chalk');
 
-module.exports = (prompts, callbacks) => {
+module.exports = () => {
   callbacks.push(callback);
 };
 
-const callback = (answers, callbacks) => {
+const callback = () => {
   if ( callbacks.length <= 1 ) {
     console.log(chalk.bold.yellow(' No configuration started. '));
-  } else {
-    console.log(chalk.bold.green(' Configuration completed. '));
+    return;
   }
+
+  console.log(chalk.bold.green(' Configuration completed. '));
+
+  packageJson.scripts = {
+    build: 'waw',
+  };
+
+  packageJson.private = true;
+
+  fs.writeFileSync(
+      path.resolve(process.cwd(), 'package.json'),
+      JSON.stringify(packageJson));
 };

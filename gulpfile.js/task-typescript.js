@@ -1,5 +1,5 @@
 module.exports = (packageJson, callbacks) => {
-  if (packageJson.entry.ts !== undefined) {
+  if (typeof packageJson.entry.ts !== 'undefined') {
     callbacks.push(callback);
   }
 };

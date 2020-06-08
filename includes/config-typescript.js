@@ -3,7 +3,7 @@ const getMatchedFiles = require('../utils/getMatchedFiles');
 
 let files = null;
 
-module.exports = (prompts, callbacks) => {
+module.exports = () => {
   prompts.next(
       {
         type: 'input',
@@ -14,7 +14,7 @@ module.exports = (prompts, callbacks) => {
           files = getMatchedFiles(/\.ts$/, entry);
 
           if ( files.length > 0 ) {
-            callbacks.push( callback );
+            callbacks.unshift( callback );
             return true;
           }
 
@@ -24,8 +24,11 @@ module.exports = (prompts, callbacks) => {
   );
 };
 
-const callback = (answers) => {
+const callback = ({tsOutputPath}) => {
   console.log(chalk.bgBlue(' Typescript files: '));
 
   files.forEach((file) => console.log(file));
+
+  packageJson.entry.ts = files;
+  packageJson.output.ts = tsOutputPath;
 };

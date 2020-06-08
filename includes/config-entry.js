@@ -1,7 +1,7 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-module.exports = (prompts, callbacks) => {
+module.exports = () => {
   prompts.next(
       {
         type: 'checkbox',

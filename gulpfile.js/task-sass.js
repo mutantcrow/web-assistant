@@ -1,5 +1,5 @@
 module.exports = (packageJson, callbacks) => {
-  if (packageJson.entry.scss !== undefined) {
+  if (typeof packageJson.entry.scss !== 'undefined') {
     callbacks.push(callback);
   }
 };
