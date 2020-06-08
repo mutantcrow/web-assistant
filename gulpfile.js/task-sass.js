@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 module.exports = (packageJson, callbacks) => {
   if (typeof packageJson.entry.scss !== 'undefined') {
     callbacks.push(callback);
@@ -5,6 +7,6 @@ module.exports = (packageJson, callbacks) => {
 };
 
 const callback = (cb) => {
-  console.log('SASS Task Completed.');
+  console.log(chalk.bgMagenta(' SASS compiling completed. '));
   cb();
 };
