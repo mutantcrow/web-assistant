@@ -2,9 +2,10 @@
   "name": "web-assistant",
   "version": "1.0.0",
   "description": "A configurable task runner for web development.",
-  "main": "index.js",
+  "main": "config.js",
   "bin": {
-    "wa": "index.js"
+    "wa": "config.js",
+    "waw": "worker.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

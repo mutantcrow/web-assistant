@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 const inquirer = require('inquirer');
 const rx = require('rxjs');
-const entry = require('./includes/entry');
-const typescript = require('./includes/typescript');
-const sass = require('./includes/sass');
-const gulp = require('./includes/gulp');
+const entry = require('./includes/config-entry');
+const typescript = require('./includes/config-typescript');
+const sass = require('./includes/config-sass');
+const output = require('./includes/config-output');
 
 const prompts = new rx.Subject();
 const callbacks = [];
@@ -16,6 +16,6 @@ inquirer.prompt(prompts)
 entry(prompts, callbacks);
 typescript(prompts, callbacks);
 sass(prompts, callbacks);
-gulp(callbacks);
+output(prompts, callbacks);
 
 prompts.complete();

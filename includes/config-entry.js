@@ -12,12 +12,4 @@ module.exports = (prompts, callbacks) => {
         validate: (input) => input.length > 0,
       },
   );
-
-  callbacks.push(callback);
-};
-
-const callback = (answers, callbacks) => {
-  if ( callbacks.length <= 1 ) {
-    console.log(chalk.yellow(' No configuration task started. '));
-  }
 };
