@@ -13,7 +13,7 @@ module.exports = (prompts, callbacks) => {
       },
   );
 
-  callbacks.unshift(callback);
+  callbacks.push(callback);
 };
 
 const callback = (answers, callbacks) => {
