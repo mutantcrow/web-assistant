@@ -7,7 +7,7 @@ const parameters = [
   '--gulpfile',
   path.resolve(__dirname, 'gulpfile.js'),
   '--option',
-  path.resolve(process.cwd(), 'package.json'),
+  path.resolve(process.cwd()),
 ];
 
 execSync(parameters.join(' '), {stdio: 'inherit'});
