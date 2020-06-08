@@ -1,12 +1,12 @@
-const chalk = require('chalk');
+const {src, dest} = require('gulp');
 
-module.exports = (packageJson, callbacks) => {
+module.exports = () => {
   if (typeof packageJson.entry.scss !== 'undefined') {
-    callbacks.push(callback);
+    callbacks.push(sass);
   }
 };
 
-const callback = (cb) => {
-  console.log(chalk.bgMagenta(' SASS compiling completed. '));
-  cb();
+const sass = (cb) => {
+  return src(packageJson.entry.scss)
+      .pipe(dest(packageJson.output.scss));
 };

@@ -1,12 +1,12 @@
-const chalk = require('chalk');
+const {src, dest} = require('gulp');
 
-module.exports = (packageJson, callbacks) => {
+module.exports = () => {
   if (typeof packageJson.entry.ts !== 'undefined') {
-    callbacks.push(callback);
+    callbacks.push(typescript);
   }
 };
 
-const callback = (cb) => {
-  console.log(chalk.bgBlue(' Typescript compiling completed. '));
-  cb();
+const typescript = (cb) => {
+  return src(packageJson.entry.ts)
+      .pipe(dest(packageJson.output.ts));
 };
