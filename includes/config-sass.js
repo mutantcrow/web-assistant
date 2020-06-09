@@ -8,7 +8,7 @@ module.exports = () => {
       {
         type: 'input',
         name: 'scssOutputPath',
-        message: chalk.bgMagenta(' Select sass output path: '),
+        message: chalk.bgMagenta(' Enter sass output path: '),
         validate: (input) => input.length > 0,
         when: ({entry}) => {
           files = getMatchedFiles(/\.scss$/, entry);

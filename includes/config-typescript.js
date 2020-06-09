@@ -8,7 +8,7 @@ module.exports = () => {
       {
         type: 'input',
         name: 'tsOutputPath',
-        message: chalk.bgBlue(' Select typescript output path: '),
+        message: chalk.bgBlue(' Enter typescript output path: '),
         validate: (input) => input.length > 0,
         when: ({entry}) => {
           files = getMatchedFiles(/\.ts$/, entry);
