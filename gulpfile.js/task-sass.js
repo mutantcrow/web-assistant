@@ -1,4 +1,5 @@
 const {src, dest} = require('gulp');
+const gulpif = require('gulp-if');
 const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-dart-sass');
 const postcss = require('gulp-postcss');
@@ -7,7 +8,7 @@ const postcssCopy = require('postcss-copy');
 const postcssAutoprefixer = require('autoprefixer');
 
 module.exports = () => {
-  if (typeof packageJson.entry.scss !== 'undefined') {
+  if ('undefined' !== typeof packageJson.entry.scss) {
     callbacks.parallel.push(taskSass);
   }
 };
@@ -30,9 +31,9 @@ const taskSass = () => {
   ];
 
   return src(packageJson.entry.scss)
-      .pipe(sourcemaps.init())
+      .pipe(gulpif(!isProd, sourcemaps.init()))
       .pipe(sass(sassArgs).on('error', sass.logError))
       .pipe(postcss(postcssPlugins))
-      .pipe(sourcemaps.write())
+      .pipe(gulpif(!isProd, sourcemaps.write()))
       .pipe(dest(packageJson.output.scss));
 };
