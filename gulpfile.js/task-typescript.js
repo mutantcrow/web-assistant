@@ -2,11 +2,11 @@ const {src, dest} = require('gulp');
 
 module.exports = () => {
   if (typeof packageJson.entry.ts !== 'undefined') {
-    callbacks.push(compileTypescript);
+    callbacks.parallel.push(taskTypescript);
   }
 };
 
-const compileTypescript = (cb) => {
+const taskTypescript = (cb) => {
   return src(packageJson.entry.ts)
       .pipe(dest(packageJson.output.ts));
 };
