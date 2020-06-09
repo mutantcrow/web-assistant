@@ -6,6 +6,7 @@ const postcss = require('gulp-postcss');
 const postcssImport = require('postcss-import');
 const postcssCopy = require('postcss-copy');
 const postcssAutoprefixer = require('autoprefixer');
+const postcssCssnano = require('cssnano');
 
 module.exports = () => {
   if ('undefined' !== typeof packageJson.entry.scss) {
@@ -29,6 +30,11 @@ const taskSass = () => {
       template: '[name]-[hash].[ext]',
     }),
   ];
+
+  if (true === isProd) {
+    postcssPlugins.push(
+        postcssCssnano(/* {preset: ['default', {colormin: false}]} */));
+  }
 
   return src(packageJson.entry.scss)
       .pipe(gulpif(!isProd, sourcemaps.init()))
