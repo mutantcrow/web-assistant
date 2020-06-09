@@ -12,4 +12,35 @@ module.exports = () => {
         validate: (input) => input.length > 0,
       },
   );
+
+  prompts.next(
+      {
+        type: 'confirm',
+        name: 'useExternalModule',
+        default: false,
+        message: chalk.bold.yellow(
+            ' Do you want to use external node_modules? '),
+        validate: (input) => input.length > 0,
+      },
+  );
+
+  prompts.next(
+      {
+        type: 'input',
+        name: 'externalModulePath',
+        message: chalk.bold.green(' Enter external node_modules path: '),
+        validate: (input) => input.length > 0,
+        when: ({useExternalModule}) => {
+          return useExternalModule;
+        },
+      },
+  );
+
+  callbacks.push(callback);
+};
+
+const callback = ({externalModulePath}) => {
+  if (typeof externalModulePath !== 'undefined') {
+    packageJson.externalModulePath = externalModulePath;
+  }
 };
