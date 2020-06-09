@@ -4,13 +4,12 @@ const clean = require('./task-clean');
 const typescript = require('./task-typescript');
 const sass = require('./task-sass');
 
-process.chdir(process.argv[5]);
+process.chdir(process.env.CALLER_DEST);
 
 global.packageJson = JSON.parse(
     readFileSync(process.cwd() + '/package.json'));
 global.callbacks = {series: [], parallel: []};
-
-// TODO: Get build from task that sent from package.json.
+global.isProd = process.env.PRODUCTION;
 
 clean();
 typescript();

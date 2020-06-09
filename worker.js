@@ -1,13 +1,9 @@
 #! /usr/bin/env node
-const path = require('path');
+const {resolve} = require('path');
 const execSync = require('child_process').execSync;
 
-const parameters = [
-  'gulp',
-  '--gulpfile',
-  path.resolve(__dirname, 'gulpfile.js'),
-  '--option',
-  path.resolve(process.cwd()),
-];
+process.env.PRODUCTION = process.argv[2] === 'production';
+process.env.CALLER_DEST = process.cwd();
 
-execSync(parameters.join(' '), {stdio: 'inherit'});
+execSync( 'gulp --gulpfile ' + resolve(__dirname, 'gulpfile.js'),
+    {stdio: 'inherit'});
