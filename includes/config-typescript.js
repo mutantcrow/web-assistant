@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const getMatchedFiles = require('../utils/getMatchedFiles');
+const {getMatchedFiles} = require('../utils');
 
 let files = null;
 
