@@ -15,7 +15,8 @@ const callback = () => {
   console.log(chalk.bold.green(' Configuration completed. '));
 
   packageJson.scripts = {
-    build: 'waw',
+    start: 'waw',
+    build: 'waw production',
   };
 
   packageJson.private = true;
