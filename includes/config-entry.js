@@ -1,5 +1,6 @@
-const fs = require('fs');
+const {readdirSync} = require('fs');
 const chalk = require('chalk');
+const {addLastSlash} = require('../utils');
 
 module.exports = () => {
   prompts.next(
@@ -7,7 +8,7 @@ module.exports = () => {
         type: 'checkbox',
         name: 'entry',
         message: chalk.bold.yellow(' Select entry file(s): '),
-        choices: fs.readdirSync(process.cwd()),
+        choices: readdirSync(process.cwd()),
         pageSize: 10,
         validate: (input) => input.length > 0,
       },
@@ -29,7 +30,9 @@ module.exports = () => {
         type: 'input',
         name: 'externalModulePath',
         message: chalk.bold.green(' Enter external node_modules path: '),
+        default: '../',
         validate: (input) => input.length > 0,
+        filter: (input) => addLastSlash(input) + 'node_modules',
         when: ({useExternalModule}) => {
           return useExternalModule;
         },
