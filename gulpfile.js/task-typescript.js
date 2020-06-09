@@ -1,7 +1,7 @@
 const {src, dest} = require('gulp');
 
 module.exports = () => {
-  if (typeof packageJson.entry.ts !== 'undefined') {
+  if ('undefined' !== typeof packageJson.entry.ts) {
     callbacks.parallel.push(taskTypescript);
   }
 };
