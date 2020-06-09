@@ -2,7 +2,9 @@ const {src} = require('gulp');
 const clean = require('gulp-clean');
 
 module.exports = () => {
-  callbacks.series.push(taskClean);
+  if ('true' === isProd) {
+    callbacks.series.push(taskClean);
+  }
 };
 
 const taskClean = () => {
