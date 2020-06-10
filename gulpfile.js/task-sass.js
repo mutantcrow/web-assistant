@@ -4,6 +4,7 @@ module.exports = () => {
   }
 
   const {src, dest, watch} = require('gulp');
+  const cache = require('gulp-cached');
   const gulpif = require('gulp-if');
   const sourcemaps = require('gulp-sourcemaps');
   const sass = require('gulp-dart-sass');
@@ -36,6 +37,7 @@ module.exports = () => {
     }
 
     return src(packageJson.entry.scss)
+        .pipe(cache('scss'))
         .pipe(gulpif(!production, sourcemaps.init()))
         .pipe(sass(sassArgs).on('error', sass.logError))
         .pipe(postcss(postcssPlugins))
