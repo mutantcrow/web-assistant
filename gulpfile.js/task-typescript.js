@@ -16,7 +16,7 @@ module.exports = () => {
 
   callbacks.parallel.push(taskTypescript);
 
-  if (false === isProd) {
+  if (false === production) {
     callbacks.parallel.push(watchTypescript);
   }
 };

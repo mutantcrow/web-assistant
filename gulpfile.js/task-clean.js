@@ -1,5 +1,5 @@
 module.exports = () => {
-  if (false === isProd) {
+  if (false === production) {
     return;
   }
 

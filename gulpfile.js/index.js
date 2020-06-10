@@ -6,7 +6,7 @@ const sass = require('./task-sass');
 
 process.chdir(process.env.CALLER_DEST);
 
-global.isProd = 'true' === process.env.PRODUCTION;
+global.production = 'true' === process.env.PRODUCTION;
 global.packageJson = JSON.parse(
     readFileSync(process.cwd() + '/package.json'));
 global.callbacks = {series: [], parallel: []};

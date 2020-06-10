@@ -30,16 +30,16 @@ module.exports = () => {
       }),
     ];
 
-    if (true === isProd) {
+    if (true === production) {
       postcssPlugins.push(
           postcssCssnano(/* {preset: ['default', {colormin: false}]} */));
     }
 
     return src(packageJson.entry.scss)
-        .pipe(gulpif(!isProd, sourcemaps.init()))
+        .pipe(gulpif(!production, sourcemaps.init()))
         .pipe(sass(sassArgs).on('error', sass.logError))
         .pipe(postcss(postcssPlugins))
-        .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulpif(!production, sourcemaps.write()))
         .pipe(dest(packageJson.output.scss));
   };
 
@@ -49,7 +49,7 @@ module.exports = () => {
 
   callbacks.parallel.push(taskSass);
 
-  if (false === isProd) {
+  if (false === production) {
     callbacks.parallel.push(watchSass);
   }
 };
