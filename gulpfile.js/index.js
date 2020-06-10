@@ -15,4 +15,5 @@ clean();
 typescript();
 sass();
 
-exports.default = series(...callbacks.series, parallel(...callbacks.parallel));
+exports.default = series(
+    ...callbacks.series, parallel(...callbacks.parallel));

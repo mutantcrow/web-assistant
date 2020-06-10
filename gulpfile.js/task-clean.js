@@ -1,13 +1,15 @@
-const {src} = require('gulp');
-const clean = require('gulp-clean');
-
 module.exports = () => {
-  if (true === isProd) {
-    callbacks.series.push(taskClean);
+  if (false === isProd) {
+    return;
   }
-};
 
-const taskClean = () => {
-  return src(Object.values(packageJson.output), {allowEmpty: true})
-      .pipe(clean({force: true, read: false}));
+  const {src} = require('gulp');
+  const clean = require('gulp-clean');
+
+  const taskClean = () => {
+    return src(Object.values(packageJson.output), {allowEmpty: true})
+        .pipe(clean({force: true, read: false}));
+  };
+
+  callbacks.series.push(taskClean);
 };
