@@ -49,7 +49,7 @@ module.exports = () => {
 
   callbacks.parallel.push(taskSass);
 
-  if (true === isProd) {
+  if (false === isProd) {
     callbacks.parallel.push(watchSass);
   }
 };
