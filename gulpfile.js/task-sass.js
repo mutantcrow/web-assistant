@@ -18,7 +18,8 @@ module.exports = () => {
     const sassArgs = {includePaths: []};
 
     if (typeof packageJson.externalModulePath !== 'undefined') {
-      sassArgs.includePaths.push(packageJson.externalModulePath);
+      sassArgs.includePaths.push(
+          packageJson.externalModulePath + 'node_modules');
     }
 
     const postcssPlugins = [
