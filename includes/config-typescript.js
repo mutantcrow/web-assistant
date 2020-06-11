@@ -9,6 +9,12 @@ module.exports = () => {
         type: 'input',
         name: 'tsOutputPath',
         message: chalk.bgBlue(' Enter typescript output path: '),
+        default: () => {
+          if ('undefined' !== packageJson.output.ts) {
+            return packageJson.output.ts;
+          }
+          return '../dist';
+        },
         validate: (input) => input.length > 0,
         when: ({entry}) => {
           files = getMatchedFiles(/\.ts$/, entry);

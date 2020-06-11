@@ -18,7 +18,13 @@ module.exports = () => {
       {
         type: 'confirm',
         name: 'useExternalModule',
-        default: false,
+        default: () => {
+          if ('undefined' !== typeof packageJson.externalModulePath) {
+            return true;
+          }
+
+          return false;
+        },
         message: chalk.bold.yellow(
             ' Do you want to use external node_modules? '),
         validate: (input) => input.length > 0,
@@ -30,9 +36,15 @@ module.exports = () => {
         type: 'input',
         name: 'externalModulePath',
         message: chalk.bold.green(' Enter external node_modules path: '),
-        default: '../',
+        default: () => {
+          if ('undefined' !== typeof packageJson.externalModulePath) {
+            return packageJson.externalModulePath;
+          }
+
+          return '../';
+        },
         validate: (input) => input.length > 0,
-        filter: (input) => addLastSlash(input) + 'node_modules',
+        filter: (input) => addLastSlash(input),
         when: ({useExternalModule}) => {
           return useExternalModule;
         },

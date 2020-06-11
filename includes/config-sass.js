@@ -9,6 +9,12 @@ module.exports = () => {
         type: 'input',
         name: 'scssOutputPath',
         message: chalk.bgMagenta(' Enter sass output path: '),
+        default: () => {
+          if ('undefined' !== packageJson.output.scss) {
+            return packageJson.output.scss;
+          }
+          return '../dist';
+        },
         validate: (input) => input.length > 0,
         when: ({entry}) => {
           files = getMatchedFiles(/\.scss$/, entry);
