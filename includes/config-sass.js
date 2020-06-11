@@ -8,11 +8,12 @@ module.exports = () => {
       {
         type: 'input',
         name: 'scssOutputPath',
-        message: chalk.bgMagenta(' Enter sass output path: '),
+        message: chalk.magenta(' Enter sass output path: '),
         default: () => {
-          if ('undefined' !== packageJson.output.scss) {
-            return packageJson.output.scss;
+          if ('undefined' !== cachedPackageJson.output.scss) {
+            return cachedPackageJson.output.scss;
           }
+
           return '../dist';
         },
         validate: (input) => input.length > 0,

@@ -10,7 +10,13 @@ module.exports = () => {
         message: chalk.bold.yellow(' Select entry file(s): '),
         choices: readdirSync(process.cwd()),
         pageSize: 10,
-        validate: (input) => input.length > 0,
+        validate: (input) => {
+          if (input.length < 1) {
+            return chalk.bgRed( ' Please select a file ');
+          }
+
+          return true;
+        },
       },
   );
 
@@ -19,13 +25,13 @@ module.exports = () => {
         type: 'confirm',
         name: 'useExternalModule',
         default: () => {
-          if ('undefined' !== typeof packageJson.externalModulePath) {
+          if ('undefined' !== typeof cachedPackageJson.externalModulePath) {
             return true;
           }
 
           return false;
         },
-        message: chalk.bold.yellow(
+        message: chalk.bold.green(
             ' Do you want to use external node_modules? '),
         validate: (input) => input.length > 0,
       },
@@ -37,8 +43,8 @@ module.exports = () => {
         name: 'externalModulePath',
         message: chalk.bold.green(' Enter external node_modules path: '),
         default: () => {
-          if ('undefined' !== typeof packageJson.externalModulePath) {
-            return packageJson.externalModulePath;
+          if ('undefined' !== typeof cachedPackageJson.externalModulePath) {
+            return cachedPackageJson.externalModulePath;
           }
 
           return '../';
@@ -57,5 +63,13 @@ module.exports = () => {
 const callback = ({externalModulePath}) => {
   if (typeof externalModulePath !== 'undefined') {
     packageJson.externalModulePath = externalModulePath;
+  }
+
+  if (callbacks.length === 2) {
+    console.log(chalk.yellow(
+        ' (!): Resulted with an empty configuration file. '));
+
+    console.log(chalk.yellow(
+        ' (!): Entry is not valid. '));
   }
 };
