@@ -12,7 +12,7 @@ const callback = () => {
     return;
   }
 
-  console.log(chalk.bold.green(' Configuration completed. '));
+  console.log(chalk.bold.inverse(' Configuration process ended. '));
 
   packageJson.scripts = {
     start: 'waw',

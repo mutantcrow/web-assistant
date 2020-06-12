@@ -8,11 +8,12 @@ module.exports = () => {
       {
         type: 'input',
         name: 'tsOutputPath',
-        message: chalk.bgBlue(' Enter typescript output path: '),
+        message: chalk.blue(' Enter typescript output path: '),
         default: () => {
-          if ('undefined' !== packageJson.output.ts) {
-            return packageJson.output.ts;
+          if ('undefined' !== cachedPackageJson.output.ts) {
+            return cachedPackageJson.output.ts;
           }
+
           return '../dist';
         },
         validate: (input) => input.length > 0,

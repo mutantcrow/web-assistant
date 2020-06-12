@@ -9,10 +9,12 @@ const output = require('./includes/config-output');
 global.prompts = new rx.Subject();
 global.callbacks = [];
 
+global.packageJson = {entry: {}, output: {}};
+
 try {
-  global.packageJson = require(process.cwd() + '/package.json');
+  global.cachedPackageJson = require(process.cwd() + '/package.json');
 } catch (error) {
-  global.packageJson = {entry: {}, output: {}};
+  global.cachedPackageJson = packageJson;
 }
 
 inquirer.prompt(prompts)
