@@ -15,8 +15,8 @@ const callback = () => {
   console.log(chalk.bold.inverse(' Configuration process ended. '));
 
   packageJson.scripts = {
-    start: 'waw',
-    build: 'waw production',
+    start: 'wa-worker',
+    build: 'wa-worker prod',
   };
 
   packageJson.private = true;

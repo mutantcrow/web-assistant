@@ -2,8 +2,14 @@
 const {resolve} = require('path');
 const {execSync} = require('child_process');
 
-process.env.PRODUCTION = process.argv[2] === 'production';
+process.env.TASK = process.argv[2];
+process.env.PRODUCTION = process.argv[3] === 'prod';
 process.env.CALLER_DEST = process.cwd();
 
-execSync( 'gulp --gulpfile ' + resolve(__dirname, 'gulpfile.js'),
-    {stdio: 'inherit'});
+process.chdir(__dirname);
+
+execSync( 'rollup -c ' +
+    (process.env.PRODUCTION === 'false' ? '-w ' : '') +
+    resolve(__dirname, 'rollup-config.js'),
+{stdio: 'inherit'});
+
