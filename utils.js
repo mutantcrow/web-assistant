@@ -1,5 +1,7 @@
 module.exports.addLastSlash = (input) => {
-  if (input[input.length - 1] === '/') return input;
+  if (input[input.length - 1] === '/') {
+    return input;
+  }
   return input + '/';
 };
 

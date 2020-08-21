@@ -1,38 +1,9 @@
-const path = require('path');
-const resolve = require('rollup-plugin-node-resolve');
-const {babel} = require('@rollup/plugin-babel');
-
-global.data = require(process.cwd() + '/package.json');
+global.callerDest = process.env.CALLER_DEST;
+global.packageJson = require( callerDest + '/package.json');
 global.production = 'true' === process.env.PRODUCTION;
+global.configs = [];
 
-const rootDir = path.resolve(process.env.CALLER_DEST);
-const dstDir = path.join(rootDir, 'dist');
-const extensions = ['.ts', '.js'];
+require('./rollups/rollup-javascript');
+require('./rollups/rollup-sass');
 
-module.exports = {
-  input: {
-    app: rootDir + '/app.ts',
-  },
-  output: {
-    dir: dstDir,
-    format: 'iife',
-    name: 'RollupModule',
-  },
-  plugins: [
-    resolve({
-      extensions,
-    }),
-    babel({
-      extensions,
-      presets: [
-        '@babel/preset-env',
-        '@babel/typescript',
-      ],
-      plugins: [
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-proposal-object-rest-spread',
-        '@babel/plugin-syntax-dynamic-import',
-      ],
-    }),
-  ],
-};
+module.exports = configs;
