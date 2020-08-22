@@ -21,20 +21,17 @@ if ('undefined' !== process.env.FILE ) {
 
 files.forEach((file) => {
   const plugins = [];
+  const outputFile = file.replace('.scss', '.css');
 
   plugins.push(
       postcss(
           {
-            extract: `${callerDest}/${outputDir}/${file.replace(
-                '.scss', '.css')}`,
+            extract: true,
             plugins: [
               atImport,
               autoprefixer,
               copy({
-                basePath: [
-                  './',
-                  `${callerDest}/${packageJson.externalModulesPath}`,
-                ],
+                basePath: [callerDest],
                 dest: `${callerDest}/${outputDir}`,
                 template: '[name]-[hash].[ext]',
               }),
@@ -44,7 +41,8 @@ files.forEach((file) => {
             use: [
               ['sass', {
                 includePaths: [
-                  `${callerDest}/${packageJson.externalModulesPath}`,
+                  `${callerDest}/${
+                    packageJson.externalModulesPath}node_modules/`,
                 ],
               }],
             ],
@@ -56,10 +54,11 @@ files.forEach((file) => {
     plugins.unshift(
         remove({
           targets: [
-            `${callerDest}/${outputDir}/${file}`,
-            `${callerDest}/${outputDir}/${file}.map`,
+            `${callerDest}/${outputDir}/${outputFile}`,
+            `${callerDest}/${outputDir}/${outputFile}.map`,
           ],
           force: true,
+          verbose: true,
         }),
     );
   }
@@ -68,8 +67,7 @@ files.forEach((file) => {
       {
         input: `${callerDest}/${file}`,
         output: {
-          file: `${callerDest}/${outputDir}/${file.replace(
-              '.scss', '.css')}`,
+          file: `${callerDest}/${outputDir}/${outputFile}`,
           format: 'es',
         },
         plugins: plugins,
