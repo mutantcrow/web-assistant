@@ -20,57 +20,48 @@ if ('undefined' !== process.env.FILE ) {
 }
 
 files.forEach((file) => {
-  const plugins = [];
   const outputFile = file.replace('.scss', '.css');
 
-  plugins.push(
-      postcss(
-          {
-            extract: true,
-            plugins: [
-              atImport,
-              autoprefixer,
-              copy({
-                basePath: [callerDest],
-                dest: `${callerDest}/${outputDir}`,
-                template: '[name]-[hash].[ext]',
-              }),
-            ],
-            minimize: production,
-            sourceMap: !production,
-            use: [
-              ['sass', {
-                includePaths: [
-                  `${callerDest}/${
-                    packageJson.externalModulesPath}node_modules/`,
-                ],
-              }],
-            ],
-          },
-      ),
-  );
+  configs.push({
+    input: `${callerDest}/${file}`,
+    output: {
+      file: `${callerDest}/${outputDir}/${outputFile}`,
+      format: 'es',
+    },
+    plugins: [
 
-  if (production === true) {
-    plugins.unshift(
-        remove({
-          targets: [
-            `${callerDest}/${outputDir}/${outputFile}`,
-            `${callerDest}/${outputDir}/${outputFile}.map`,
-          ],
-          force: true,
-          verbose: true,
-        }),
-    );
-  }
+      production && remove({
+        targets: [
+          `${callerDest}/${outputDir}/${outputFile}`,
+          `${callerDest}/${outputDir}/${outputFile}.map`,
+        ],
+        force: true,
+        verbose: true,
+      }),
 
-  configs.push(
-      {
-        input: `${callerDest}/${file}`,
-        output: {
-          file: `${callerDest}/${outputDir}/${outputFile}`,
-          format: 'es',
-        },
-        plugins: plugins,
-      },
-  );
+      postcss({
+        extract: true,
+        plugins: [
+          atImport,
+          autoprefixer,
+          copy({
+            basePath: [callerDest],
+            dest: `${callerDest}/${outputDir}`,
+            template: '[name]-[hash].[ext]',
+          }),
+        ],
+        minimize: production,
+        sourceMap: !production,
+        use: [
+          ['sass', {
+            includePaths: [
+              `${callerDest}/${
+                packageJson.externalModulesPath}node_modules/`,
+            ],
+          }],
+        ],
+      }),
+
+    ],
+  });
 });

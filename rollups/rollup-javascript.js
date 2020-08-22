@@ -20,11 +20,28 @@ if ('undefined' !== process.env.FILE ) {
 }
 
 files.forEach((file) => {
-  const plugins = [];
+  configs.push({
+    input: `${callerDest}/${file}`,
+    output: {
+      file: `${callerDest}/${outputDir}/${file}`,
+      format: format,
+      sourcemap: !production,
+    },
+    plugins: [
 
-  plugins.push(resolve());
-  plugins.push(commonjs());
-  plugins.push(
+      production && remove({
+        targets: [
+          `${callerDest}/${outputDir}/${file}`,
+          `${callerDest}/${outputDir}/${file}.map`,
+        ],
+        force: true,
+        verbose: true,
+      }),
+
+      resolve(),
+
+      commonjs(),
+
       babel({
         presets: [
           '@babel/preset-env',
@@ -36,38 +53,13 @@ files.forEach((file) => {
         ],
         babelHelpers: 'bundled',
       }),
-  );
 
-  if (production === true) {
-    plugins.unshift(
-        remove({
-          targets: [
-            `${callerDest}/${outputDir}/${file}`,
-            `${callerDest}/${outputDir}/${file}.map`,
-          ],
-          force: true,
-          verbose: true,
-        }),
-    );
-
-    plugins.push(
-        terser({
-          output: {
-            comments: false,
-          },
-        }),
-    );
-  }
-
-  configs.push(
-      {
-        input: `${callerDest}/${file}`,
+      production && terser({
         output: {
-          file: `${callerDest}/${outputDir}/${file}`,
-          format: format,
-          sourcemap: !production,
+          comments: false,
         },
-        plugins: plugins,
-      },
-  );
+      }),
+
+    ],
+  });
 });
