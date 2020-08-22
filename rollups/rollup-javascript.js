@@ -46,6 +46,7 @@ files.forEach((file) => {
             `${callerDest}/${outputDir}/${file}.map`,
           ],
           force: true,
+          verbose: true,
         }),
     );
 
